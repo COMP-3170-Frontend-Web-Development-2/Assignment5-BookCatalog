@@ -9,13 +9,14 @@ import Modal from "../_ui/modal/modal.jsx";
 import Button from "../_ui/Button/button.jsx";
 
 function Homepage() {
-    // Load from localStorage or start empty
+    //To load from localStorage or start empty
     const [books, setBooks] = useState(() => {
         const savedBooks = localStorage.getItem("books");
-        return savedBooks ? JSON.parse(savedBooks) : [];
+        if (savedBooks) return JSON.parse(savedBooks);
+        else return [];
     });
 
-    // Persist to localStorage
+    // Keeps it into the localStorage
     useEffect(() => {
         localStorage.setItem("books", JSON.stringify(books));
     }, [books]);
@@ -23,10 +24,11 @@ function Homepage() {
     // Filter by language
     const [filter, setFilter] = useState("");
 
-    // ✅ Make it an Array (not a Set) so we can .map()
-    const languages = [
-        ...new Set(books.map((b) => b?.language).filter(Boolean)),
-    ];
+    // Selected book - if selected
+    const selectedBook = books.find((b) => b.selected);
+
+    // Filter options
+    const languages = new Set(books.map((b) => b?.language).filter(Boolean));
 
     // Filtered books
     const displayedBooks =
@@ -34,7 +36,7 @@ function Homepage() {
             ? books
             : books.filter((book) => book.language === filter);
 
-    // Add new book
+    // To add a new book
     function handleAddBook(bookData) {
         const newBook = {
             id: nanoid(),
@@ -53,7 +55,7 @@ function Homepage() {
         if (bookData.onReset) bookData.onReset();
     }
 
-    // Edit selected book
+    // To edit a selected book
     function handleEdit(updatedBook) {
         const selected = books.find((b) => b.selected);
         if (!selected) return;
@@ -69,12 +71,12 @@ function Homepage() {
         );
     }
 
-    // Delete selected book
+    // To delete a selected book
     function handleDelete(id) {
         setBooks((prev) => prev.filter((b) => b.id !== id));
     }
 
-    // Select one book at a time
+    // To select one book per time
     function handleSelectBook(index) {
         setBooks((prev) =>
             prev.map((book, i) =>
@@ -85,24 +87,22 @@ function Homepage() {
         );
     }
 
-    const selectedBook = books.find((b) => b.selected);
-
     return (
         <div className={styles.homepage}>
             <Header />
 
-            {/* FILTER */}
+            {/* FILTER OPTION */}
             <div className={styles.filter}>
-                <label>Filter by language: </label>
+                Languages:
                 <select
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}>
                     <option value=''>All</option>
-                    {languages.map((lang) => (
+                    {[...languages].map((lng) => (
                         <option
-                            key={lang}
-                            value={lang}>
-                            {lang}
+                            key={lng}
+                            value={lng}>
+                            {lng}
                         </option>
                     ))}
                 </select>
@@ -111,7 +111,7 @@ function Homepage() {
             <main className={styles.homepage__main}>
                 <div className={styles.homepage__content}>
                     <div className={styles.hompage__button__container}>
-                        {/* ADD */}
+                        {/* ADD A NEW BOOK */}
                         <Modal
                             buttontitle='+ Add new Book'
                             variant='add'>
@@ -126,7 +126,7 @@ function Homepage() {
                             )}
                         </Modal>
 
-                        {/* EDIT */}
+                        {/* EDIT A SELECTED BOOK */}
                         <Modal
                             buttontitle='Edit'
                             variant='edit'
@@ -143,7 +143,7 @@ function Homepage() {
                             )}
                         </Modal>
 
-                        {/* DELETE */}
+                        {/* DELETE A SELECTED BOOK */}
                         <Button
                             onClick={() =>
                                 selectedBook && handleDelete(selectedBook.id)
@@ -159,9 +159,8 @@ function Homepage() {
                         </Button>
                     </div>
 
-                    {/* ✅ Use displayedBooks so the filter actually applies */}
                     <div className={styles.homepage__books}>
-                        {displayedBooks.map((book, index) => (
+                        {books.map((book, index) => (
                             <Book
                                 key={book.isbn13 || book.id || index}
                                 book={book}
