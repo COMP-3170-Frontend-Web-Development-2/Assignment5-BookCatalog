@@ -142,28 +142,24 @@ function Homepage() {
                         </Modal>
 
                         {/* DELETE BUTTON */}
-                        <span
+                        <Button
+                            onClick={() =>
+                                selectedBook && handleDelete(selectedBook.id)
+                            }
+                            variant='delete'
+                            size='small'
+                            disabled={!selectedBook}
                             style={{
                                 opacity: selectedBook ? 1 : 0.5,
                                 cursor: selectedBook
                                     ? "pointer"
                                     : "not-allowed",
-                                pointerEvents: selectedBook ? "auto" : "none",
                                 transition: selectedBook
                                     ? "all 0.2s ease"
                                     : "none",
                             }}>
-                            <Button
-                                onClick={() =>
-                                    selectedBook &&
-                                    handleDelete(selectedBook.id)
-                                }
-                                variant='delete'
-                                size='small'
-                                disabled={!selectedBook}>
-                                Delete
-                            </Button>
-                        </span>
+                            Delete
+                        </Button>
                     </div>
 
                     {/* DISPLAYED BOOKS BY FILTER */}

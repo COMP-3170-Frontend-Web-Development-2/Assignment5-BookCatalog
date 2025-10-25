@@ -9,19 +9,21 @@ import Modal from "../_ui/modal/modal.jsx";
 import Button from "../_ui/Button/button.jsx";
 
 function Homepage() {
-    // Load books from localStorage or start empty
+    // Load from localStorage or start empty
     const [books, setBooks] = useState(() => {
         const savedBooks = localStorage.getItem("books");
         return savedBooks ? JSON.parse(savedBooks) : [];
     });
 
-    // Keeps it into the localStorage
+    // Persist to localStorage
     useEffect(() => {
         localStorage.setItem("books", JSON.stringify(books));
     }, [books]);
 
     // Filter by language
     const [filter, setFilter] = useState("");
+
+    // ✅ Make it an Array (not a Set) so we can .map()
     const languages = [
         ...new Set(books.map((b) => b?.language).filter(Boolean)),
     ];
@@ -89,7 +91,7 @@ function Homepage() {
         <div className={styles.homepage}>
             <Header />
 
-            {/* FILTER OPT*/}
+            {/* FILTER */}
             <div className={styles.filter}>
                 <label>Filter by language: </label>
                 <select
@@ -142,28 +144,19 @@ function Homepage() {
                         </Modal>
 
                         {/* DELETE BUTTON */}
-                        <span
+                        <Button
+                            onClick={() =>
+                                selectedBook && handleDelete(selectedBook.id)
+                            }
+                            variant='delete'
+                            size='small'
+                            disabled={!selectedBook}
                             style={{
-                                opacity: selectedBook ? 1 : 0.5,
-                                cursor: selectedBook
-                                    ? "pointer"
-                                    : "not-allowed",
+                                opacity: selectedBook ? 1 : 0.6,
                                 pointerEvents: selectedBook ? "auto" : "none",
-                                transition: selectedBook
-                                    ? "all 0.2s ease"
-                                    : "none",
                             }}>
-                            <Button
-                                onClick={() =>
-                                    selectedBook &&
-                                    handleDelete(selectedBook.id)
-                                }
-                                variant='delete'
-                                size='small'
-                                disabled={!selectedBook}>
-                                Delete
-                            </Button>
-                        </span>
+                            Delete
+                        </Button>
                     </div>
 
                     {/* DISPLAYED BOOKS BY FILTER */}

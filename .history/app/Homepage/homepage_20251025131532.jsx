@@ -9,7 +9,7 @@ import Modal from "../_ui/modal/modal.jsx";
 import Button from "../_ui/Button/button.jsx";
 
 function Homepage() {
-    // Load books from localStorage or start empty
+    // Load from localStorage or start empty
     const [books, setBooks] = useState(() => {
         const savedBooks = localStorage.getItem("books");
         return savedBooks ? JSON.parse(savedBooks) : [];
@@ -142,28 +142,19 @@ function Homepage() {
                         </Modal>
 
                         {/* DELETE BUTTON */}
-                        <span
+                        <Button
+                            onClick={() =>
+                                selectedBook && handleDelete(selectedBook.id)
+                            }
+                            variant='delete'
+                            size='small'
+                            disabled={!selectedBook}
                             style={{
-                                opacity: selectedBook ? 1 : 0.5,
-                                cursor: selectedBook
-                                    ? "pointer"
-                                    : "not-allowed",
+                                opacity: selectedBook ? 1 : 0.6,
                                 pointerEvents: selectedBook ? "auto" : "none",
-                                transition: selectedBook
-                                    ? "all 0.2s ease"
-                                    : "none",
                             }}>
-                            <Button
-                                onClick={() =>
-                                    selectedBook &&
-                                    handleDelete(selectedBook.id)
-                                }
-                                variant='delete'
-                                size='small'
-                                disabled={!selectedBook}>
-                                Delete
-                            </Button>
-                        </span>
+                            Delete
+                        </Button>
                     </div>
 
                     {/* DISPLAYED BOOKS BY FILTER */}

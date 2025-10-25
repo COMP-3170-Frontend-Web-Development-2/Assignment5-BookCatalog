@@ -40,11 +40,12 @@
 .filter {
     display: flex;
     align-items: center;
-    gap: var(--space-md);
+    gap: var(--space-lg);
     margin: var(--space-lg);
     padding: var(--space-lg);
     background-color: var(--white-100);
-    font-family: var(--font-family);
+    border: 1px solid var(--black-100);
+    border-radius: 12px;
 }
 
 /* Responsive design */

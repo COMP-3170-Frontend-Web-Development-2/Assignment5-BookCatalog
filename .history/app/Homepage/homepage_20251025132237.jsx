@@ -144,6 +144,7 @@ function Homepage() {
                         {/* DELETE BUTTON */}
                         <span
                             style={{
+                                display: "inline-block",
                                 opacity: selectedBook ? 1 : 0.5,
                                 cursor: selectedBook
                                     ? "pointer"
