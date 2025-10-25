@@ -46,7 +46,6 @@ function Homepage() {
             url: bookData.url || "#",
         };
         setBooks((prev) => [...prev, newBook]);
-        if (bookData.onReset) bookData.onReset();
     }
 
     // To edit a selected book

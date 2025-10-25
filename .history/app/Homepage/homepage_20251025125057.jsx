@@ -21,71 +21,25 @@ function Homepage() {
         localStorage.setItem("books", JSON.stringify(books));
     }, [books]);
 
-    // Filter by language
+    // ===== Seleção de livro =====
+    const [selectedBookId, setSelectedBookId] = useState(null);
+
+    // ===== Filtro por idioma =====
     const [filter, setFilter] = useState("");
-
-    // Lis of books after filter applied
     const displayedBooks =
-        filter === ""
-            ? books
-            : books.filter((book) => book.language === filter);
+        filter === "" ? books : books.filter((b) => b.language === filter);
 
-    // To add a new book
-    function handleAddBook(bookData) {
-        const newBook = {
-            id: nanoid(),
-            selected: false,
-            title: bookData.title,
-            author: bookData.author,
-            publisher: bookData.publisher,
-            year: bookData.year,
-            language: bookData.language,
-            pages: bookData.pages,
-            image: bookData.url || "https://placehold.co/150x200",
-            price: "$0.00",
-            url: bookData.url || "#",
-        };
-        setBooks((prev) => [...prev, newBook]);
-        if (bookData.onReset) bookData.onReset();
-    }
+    // Opções de idioma (derivadas da lista)
+    const languageOptions = Array.from(
+        new Set(books.map((b) => b.language))
+    ).sort();
 
-    // To edit a selected book
-    function handleEdit(updatedBook) {
-        const selected = books.find((b) => b.selected);
-        if (!selected) return;
-
-        const edited = {
-            ...selected,
-            ...updatedBook,
-            image: updatedBook?.url || selected.image,
-            url: updatedBook?.url ?? selected.url,
-        };
-        setBooks((prev) =>
-            prev.map((b) => (b.id === selected.id ? edited : b))
-        );
-    }
-
-    // To delete a selected book
-    function handleDelete(id) {
-        setBooks((prev) => prev.filter((b) => b.id !== id));
-    }
-
-    // To select one book per time
-    function handleSelectBook(index) {
-        setBooks((prev) =>
-            prev.map((book, i) =>
-                i === index
-                    ? { ...book, selected: !book.selected }
-                    : { ...book, selected: false }
-            )
-        );
-    }
-
-    // Selected book - if selected
-    const selectedBook = books.find((b) => b.selected);
-
-    // Filter options
-    const languages = new Set(books.map((b) => b?.language).filter(Boolean));
+    // ===== Ações =====
+    const handleDelete = () => {
+        if (!selectedBookId) return; // segurança extra
+        setBooks((prev) => prev.filter((b) => b.id !== selectedBookId));
+        setSelectedBookId(null);
+    };
 
     return (
         <div className={styles.homepage}>
@@ -95,6 +49,7 @@ function Homepage() {
             <div className={styles.filter}>
                 Languages:
                 <select
+                    className={styles.filter_select}
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}>
                     <option value=''>All</option>

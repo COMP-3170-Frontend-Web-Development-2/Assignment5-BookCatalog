@@ -16,11 +16,6 @@ function Homepage() {
         else return [];
     });
 
-    // Keeps it into the localStorage
-    useEffect(() => {
-        localStorage.setItem("books", JSON.stringify(books));
-    }, [books]);
-
     // Filter by language
     const [filter, setFilter] = useState("");
 
@@ -29,6 +24,11 @@ function Homepage() {
         filter === ""
             ? books
             : books.filter((book) => book.language === filter);
+
+    // Keeps it into the localStorage
+    useEffect(() => {
+        localStorage.setItem("books", JSON.stringify(books));
+    }, [books]);
 
     // To add a new book
     function handleAddBook(bookData) {
@@ -46,7 +46,6 @@ function Homepage() {
             url: bookData.url || "#",
         };
         setBooks((prev) => [...prev, newBook]);
-        if (bookData.onReset) bookData.onReset();
     }
 
     // To edit a selected book

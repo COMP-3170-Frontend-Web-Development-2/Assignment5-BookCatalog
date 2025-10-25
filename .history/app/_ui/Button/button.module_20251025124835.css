@@ -1,0 +1,107 @@
+.button {
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: var(--font-weight-600);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+}
+
+.button:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Variants */
+.button--primary {
+    background-color: var(--primary);
+    color: var(--white);
+    border: 2px solid var(--primary);
+}
+
+.button--primary:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.button--add {
+    background-color: var(--primary);
+    color: var(--white);
+    border: 2px solid var(--primary);
+    font-size: var(--font-size-xl);
+}
+
+.button--add:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.button--edit {
+    background-color: var(--edit);
+    color: var(--white);
+    border: 2px solid var(--edit);
+    font-size: var(--font-size-regular);
+}
+
+.button--edit:hover:not(:disabled) {
+    background-color: var(--edit-hover);
+    border-color: var(--edit-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.button--delete {
+    background-color: var(--delete);
+    color: var(--white);
+    border: 2px solid var(--delete);
+    font-size: var(--font-size-regular);
+}
+
+.button--delete:hover:not(:disabled) {
+    background-color: var(--delete-hover);
+    border-color: var(--delete-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Sizes */
+.button--large {
+    width: var(--button-width);
+    height: var(--button-height);
+    font-size: var(--font-size-xl);
+    padding: var(--space-lg);
+}
+
+.button--medium {
+    width: var(--button-width);
+    height: var(--space-xxl);
+    font-size: var(--font-size-medium);
+    padding: var(--space-sm) var(--space-md);
+}
+
+.button--small {
+    width: var(--button-width);
+    height: var(--space-xl);
+    font-size: var(--font-size-small);
+    padding: var(--space-xs) var(--space-sm);
+}
+
+.button--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

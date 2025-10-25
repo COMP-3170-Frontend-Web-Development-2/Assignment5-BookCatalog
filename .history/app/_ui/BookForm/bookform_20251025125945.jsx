@@ -24,9 +24,16 @@ function BookForm({ initialBook, onSubmit, submitLabel = "Save" }) {
                 url: initialBook.url ?? "",
             });
         } else {
-            resetForm();
+            setFormData({
+                title: "",
+                author: "",
+                publisher: "",
+                year: "",
+                language: "",
+                pages: "",
+                url: "",
+            });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [initialBook]);
 
     function handleChange(e) {
@@ -34,12 +41,9 @@ function BookForm({ initialBook, onSubmit, submitLabel = "Save" }) {
         setFormData((prev) => ({ ...prev, [name]: value }));
     }
 
-    // English note: On submit, we call the parent handler and,
-    // if we're adding (not editing), we clear the form.
     function handleSubmit(e) {
         e.preventDefault();
-        onSubmit?.(formData);
-        if (!isEdit) resetForm(); // ✅ clear fields after adding
+        onSubmit(formData);
     }
 
     const isEdit = Boolean(initialBook);
