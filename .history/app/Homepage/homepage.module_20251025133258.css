@@ -11,10 +11,6 @@
     align-items: center;
     padding: var(--space-xxl) var(--space-lg);
     background-color: var(--white);
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    gap: var(--space-24, 24px);
-    align-items: start;
 }
 
 .homepage__content {
@@ -28,17 +24,17 @@
 }
 
 .hompage__button__container {
-    flex: 0 0 auto;
+    flex: 0 0 auto; /* largura do conteúdo (botões) */
     display: flex;
     flex-direction: column;
     gap: var(--space-12, 12px);
     position: sticky;
-    top: var(--space-24, 24px);
+    top: var(--space-24, 24px); /* fica fixo ao rolar */
     align-self: flex-start;
 }
 
 .homepage__books {
-    flex: 1 1 auto;
+    flex: 1 1 auto; /* ocupa o resto do espaço */
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-16, 16px);

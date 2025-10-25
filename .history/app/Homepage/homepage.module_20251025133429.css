@@ -1,7 +1,8 @@
 .homepage {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: max-content 1fr; /* esq = largura do conteúdo; dir = ocupa o resto */
+    gap: var(--space-24, 24px);
+    align-items: start;
 }
 
 .homepage__main {
@@ -11,10 +12,6 @@
     align-items: center;
     padding: var(--space-xxl) var(--space-lg);
     background-color: var(--white);
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    gap: var(--space-24, 24px);
-    align-items: start;
 }
 
 .homepage__content {
@@ -28,13 +25,10 @@
 }
 
 .hompage__button__container {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-12, 12px);
     position: sticky;
     top: var(--space-24, 24px);
-    align-self: flex-start;
+    align-self: start; /* gruda no topo da grid */
+    /* Nada aqui muda tamanho dos botões */
 }
 
 .homepage__books {
