@@ -1,0 +1,12 @@
+# Assignment 5 - Editing & Filtering
+
+Instructions
+Update the Book Catalog app and add the following functionality:
+
+-   Edit an existing book
+-   Filter displayed books based on some criteria (e.g. publisher, language). The choice of the filter criteria is yours.
+-   Store books in local storage
+
+Here is a live example: https://yveshema.github.io/comp3170-book-catalog-v5/
+
+Due on Oct 26, 2025 11:59 PM

@@ -1,0 +1,57 @@
+.buttonstyle {
+    border: none;
+    border-radius: var(--radius);
+    outline: none;
+
+    cursor: pointer;
+
+    font-family: inherit;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-600);
+    transition: var(--transition);
+    text-align: center;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--primary);
+    color: var(--white);
+
+    width: var(--button-width);
+    height: var(--button-height);
+    padding: var(--space-lg);
+}
+
+.buttonstyle:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.buttonstyle:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.buttonstyle:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+dialog {
+    border: none;
+    border-radius: var(--radius);
+    padding: 0;
+    max-width: 500px;
+    margin: auto;
+    position: relative;
+    align-items: center;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
